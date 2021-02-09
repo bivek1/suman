@@ -1,0 +1,99 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        {%if user.user_type == '1'%}
+        <h1 class="h2">Principal Dashboard</h1>
+        {%else%}
+        <h1 class="h2">Staff Dashboard</h1>
+        {% endif %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+    
+        <h4>Add Student</h4>
+        <small>Add Student your Collage</small>
+        <br>
+        <hr>
+        {% if messages %}
+        {%for m in messages%}
+        <div class="alert alert-primary" role="alert">
+            {{m}}
+          </div>
+        {%endfor%}
+        {% endif %}
+        <form class="p-3" action="" method="post" style="background-color: #f8f9fa;">
+            <div class=row>
+                <div class="col">
+                    {{form.id_card.label_tag}}
+                    {{form.id_card}}
+                    {{form.id_card.errors}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.first_name.label_tag}}
+                    {{form.first_name}}
+                    {{form.first_name.errors}}
+                </div>
+                <div class="col">
+                    {{form.last_name.label_tag}}
+                    {{form.last_name}}
+                    {{form.last_name.errors}}
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.email.label_tag}}
+                    {{form.email}}
+                    {{form.email.errors}}
+                </div>
+                <div class="col">
+                    {{form.faculty.label_tag}}
+                    {{form.faculty}}
+                    {{form.faculty.errors}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.number.label_tag}}
+                    {{form.number}}
+                    {{form.number.errors}}
+                </div>
+                <div class="col">
+                    {{form.Temporary_address.label_tag}}
+                    {{form.Temporary_address}}
+                    {{form.Temporary_address.errors}}
+                </div>
+                <div class="col">
+                    {{form.gender.label_tag}}
+                    {{form.gender}}
+                    {{form.gender.errors}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.street.label_tag}}
+                    {{form.street}}
+                    {{form.street.errors}}
+                </div>
+                <div class="col">
+                    {{form.district.label_tag}}
+                    {{form.district}}
+                    {{form.district.errors}}
+                </div>
+            </div>
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-danger">Add Student</button>
+            
+        </form>
+
+  </main>
+{% endblock content %}

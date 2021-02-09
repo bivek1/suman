@@ -1,0 +1,77 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Principal Dashboard</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+    
+        <h4>Add Staff</h4>
+        <small>Add Teacher or staff to your Collage</small>
+        <br>
+        <hr>
+        {% if messages %}
+        {%for m in messages%}
+        <div class="alert alert-primary" role="alert">
+            {{m}}
+          </div>
+        {%endfor%}
+        {% endif %}
+        <form class="p-3" action="" method="post" style="background-color: #f8f9fa;">
+            <div class="row">
+                <div class="col">
+                    {{form.first_name.label_tag}}
+                    {{form.first_name}}
+                    {{form.first_name.errors}}
+                </div>
+                <div class="col">
+                    {{form.last_name.label_tag}}
+                    {{form.last_name}}
+                    {{form.last_name.errors}}
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.username.label_tag}}
+                    {{form.username}}
+                    {{form.username.errors}}
+                </div>
+                <div class="col">
+                    {{form.password.label_tag}}
+                    {{form.password}}
+                    {{form.password.errors}}
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form.number.label_tag}}
+                    {{form.number}}
+                    {{form.number.errors}}
+                </div>
+                <div class="col">
+                    {{form.Temporary_address.label_tag}}
+                    {{form.Temporary_address}}
+                    {{form.Temporary_address.errors}}
+                </div>
+                <div class="col">
+                    {{form.gender.label_tag}}
+                    {{form.gender}}
+                    {{form.gender.errors}}
+                </div>
+            </div>
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-danger">Add Staff</button>
+            
+        </form>
+
+  </main>
+{% endblock content %}

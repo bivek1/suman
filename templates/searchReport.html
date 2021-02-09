@@ -1,0 +1,64 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      {%if user.user_type == '1'%}
+      <h1 class="h2">Principal Dashboard</h1>
+      {%else%}
+      <h1 class="h2">Staff Dashboard</h1>
+      {% endif %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+    {% if messages %}
+    {%for m in messages%}
+    <div class="alert alert-primary" role="alert">
+        {{m}}
+      </div>
+    {%endfor%}
+    {% endif %}
+    {% if student %}
+    <h6>You searched for {{student.admin.first_name}}</h6>
+    <hr>
+    {% if messages %}
+        {%for m in messages%}
+        <div class="alert alert-primary" role="alert">
+            {{m}}
+          </div>
+        {%endfor%}
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+    
+            <div class="card m-2" style="width: 20rem;">
+                <img class="card-img-top" src="{%if student.gender == 'Male'%}{%static 'res/male.png'%} {%else%}{%static 'res/female.jpg'%}{%endif%}" alt="Card image cap" style="height: 300px;">
+                <div class="card-body">
+                  <h5 class="card-title">{{student.admin.first_name|capfirst}} {{student.admin.last_name|capfirst}}</h5>
+                  <p class="card-text">{{student.number}}, {{student.Temporary_address|capfirst}}</p>
+                  <p><b>Gender: {{student.gender}}</b></p>
+                  <p><b>Faculty: {{student.faculty}}</b></p>
+                  <p><b>Parent Email: {{student.admin.email}}</b></p>
+               
+                </div>
+            </div>
+         
+        </div>
+        
+    </div>
+    {%else%}
+    <div class='text-center'>
+        <H3>No Result Found</H3>
+    </div>
+    {% endif %}
+        
+
+  </main>
+{% endblock content %}

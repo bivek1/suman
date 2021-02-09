@@ -1,0 +1,44 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Principal Dashboard</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+    <h6>Staff List</h6>
+    <hr>
+    {% if messages %}
+        {%for m in messages%}
+        <div class="alert alert-primary" role="alert">
+            {{m}}
+          </div>
+        {%endfor%}
+    {% endif %}
+        
+    <div class="container-fluid">
+        <div class="row">
+            {% for m in staff %}
+            <div class="card m-2" style="width: 20rem;">
+                <img class="card-img-top" src="{%if m.gender == 'Male'%}{%static 'res/teacher.png'%} {%else%}{%static 'res/girl.jpg'%}{%endif%}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{m.admin.first_name|capfirst}} {{m.admin.last_name|capfirst}}</h5>
+                  <p class="card-text">{{m.number}}, {{m.Temporary_address|capfirst}}</p>
+                  <p><b>Gender: {{m.gender}}</b></p>
+               
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+            
+        
+    </div>
+  </main>
+{% endblock content %}

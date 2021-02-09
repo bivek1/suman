@@ -1,0 +1,56 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      {%if user.user_type == '1'%}
+      <h1 class="h2">Principal Dashboard</h1>
+      {%else%}
+      <h1 class="h2">Staff Dashboard</h1>
+      {% endif %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+        <h4>Send SMS to Parents</h4>
+        <small>Send SMS to parents</small>
+        <br>
+        <hr>
+        {% if messages %}
+        {%for m in messages%}
+        <div class="alert alert-primary" role="alert">
+            {{m}}
+          </div>
+        {%endfor%}
+        {% endif %}
+        <form class="p-3" action="" method="post" style="background-color: #f8f9fa;">
+            <div class="row">
+                <div class="col-12">
+                    <label for="student"> Student Name</label>
+                    <select name="student" id="" class="form-control">
+                        {% for s in student  %}
+                            <option value="{{s.admin.id}}">{{s.admin.first_name|capfirst}} {{s.admin.last_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="student"> Parents Number</label>
+                   <input type="text" class="form-control" name="number">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Message</label>
+                    <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+            </div>
+           
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-danger">Send SMS</button>
+            
+        </form>
+
+  </main>
+{% endblock content %}

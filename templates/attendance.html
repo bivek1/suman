@@ -1,0 +1,74 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      {%if user.user_type == '1'%}
+      <h1 class="h2">Principal Dashboard</h1>
+      {%else%}
+      <h1 class="h2">Staff Dashboard</h1>
+      {% endif %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Logout</button>
+              </a>
+        </div>
+      </div>
+    </div>
+        <h4>View Live Attendance</h4>
+        <small>View Live Attendance of your student</small>
+        <br>
+        <hr>
+    
+        <form class="p-3" action="" method="post" style="background-color: #f8f9fa;">
+            <div class="row">
+                <div class="col-12">
+                    <label for="student"> Attendance Input</label>
+                   <input type="text" class="form-control" name="attandance">
+                </div>
+            </div>
+            {% csrf_token %}
+            <br>
+            <button type="submit" class="btn btn-danger" style="display: none;">Attendance</button>
+            
+        </form>
+
+        <hr>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>ID CARD NO.</th>
+              <th>Entered Time</th>
+              <th>Leave Time</th>
+              <th>Present</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            
+            
+            {% for s in attendance  %}
+            <tr>
+              <td>{{s.student.admin.first_name}} {{s.student.admin.last_name}}</td>
+              <td>{{s.student.id_card}}</td>
+              <td>{{s.morning}}</td>
+              <td>{{s.evening}}</td>
+              <td>
+                {%if s.present%}
+                  Present
+                {%else%}
+                {%endif%}
+                </td>
+            </tr>
+            {% endfor %}
+              
+           
+          </tbody>
+        </table>
+      </div>
+
+  </main>
+
+{% endblock content %}
